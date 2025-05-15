@@ -24,6 +24,10 @@ def get_author(db: Session, author_id: int) -> Author:
     return db.query(Author).filter(Author.id == author_id).first()
 
 
+def get_author_by_name(db: Session, name: str) -> Author:
+    return db.query(Author).filter(Author.name == name).first()
+
+
 def get_authors(db: Session, skip: int = 0, limit: int = 10) -> PaginatedAuthorsSchema:
     authors = db.query(Author).offset(skip).limit(limit).all()
     total = db.query(Author).count()
@@ -41,6 +45,10 @@ def create_book(db: Session, book: BookCreateSchema) -> Book:
     db.commit()
     db.refresh(db_book)
     return db_book
+
+
+def get_book_by_title(db: Session, title: str) -> Book:
+    return db.query(Book).filter(Book.title == title).first()
 
 
 def get_books(db: Session, skip: int = 0, limit: int = 10) -> PaginatedBooksSchema:

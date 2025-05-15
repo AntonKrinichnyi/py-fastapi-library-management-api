@@ -16,27 +16,27 @@ class AuthorCreateSchema(AuthorBaseSchema):
 class BookBaseSchema(BaseModel):
     title: str = Field(..., min_length=1, max_length=255)
     summary: Optional[str] = Field(None, max_length=511)
-    publication_date: date = Field(
+    published_date: date = Field(
         ...,
         description="The publication date of the book "
         "in ISO format (YYYY-MM-DD)"
     )
 
-    @field_validator("publication_date", mode="before")
+    @field_validator("published_date", mode="before")
     @classmethod
-    def validate_publication_date(cls, value):
+    def validate_published_date(cls, value):
         if isinstance(value, str):
             try:
                 return datetime.strptime(value, "%Y-%m-%d").date()
             except ValueError:
                 raise ValueError(
-                    "Invalid date format for 'publication_date'. "
+                    "Invalid date format for 'published_date'. "
                     "Expected format: YYYY-MM-DD."
                 )
         elif isinstance(value, date):
             return value
         raise ValueError(
-            "Invalid type for 'publication_date'. "
+            "Invalid type for 'published_date'. "
             "Must be a string in YYYY-MM-DD format or a date object."
         )
 

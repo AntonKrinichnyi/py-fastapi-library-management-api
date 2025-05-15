@@ -34,7 +34,7 @@ def create_book(db: Session, book: BookCreateSchema) -> Book:
     db_book = Book(
         title=book.title,
         summary=book.summary,
-        publication_date=book.publication_date,
+        published_date=book.published_date,
         author_id=book.author_id
     )
     db.add(db_book)

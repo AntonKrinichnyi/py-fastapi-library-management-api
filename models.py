@@ -11,7 +11,7 @@ class AuthorModel(Base):
     name = Column(String(255), unique=True, nullable=False)
     bio = Column(String(512), nullable=True)
     
-    books = relationship("Book", back_populates="author")
+    books = relationship("BookModel", back_populates="author")
 
 
 class BookModel(Base):
@@ -22,3 +22,5 @@ class BookModel(Base):
     summary = Column(String(512), nullable=True)
     published_date = Column(Date, nullable=True)
     author_id = Column(Integer, ForeignKey('authors.id'), nullable=False)
+
+    author = relationship("AuthorModel", back_populates="books")
